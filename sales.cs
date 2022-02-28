@@ -29,16 +29,14 @@ namespace rafay_shop_project
 
         private void PictureBox2_Click(object sender, EventArgs e)
         {
-            login login1= new login();
-            login1.Show();
+           
 
 
         }
 
         private void Label_Click(object sender, EventArgs e)
         {
-            login login1 = new login();
-            login1.Show();
+           
         }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -58,7 +56,9 @@ namespace rafay_shop_project
 
         private void Label1_Click(object sender, EventArgs e)
         {
-
+            customer customer1 = new customer();
+            customer1.Show();
+            this.Hide();
         }
 
         private void Label2_Click(object sender, EventArgs e)
@@ -88,7 +88,9 @@ namespace rafay_shop_project
 
         private void PictureBox3_Click(object sender, EventArgs e)
         {
-
+            customer customer1 = new customer();
+            customer1.Show();
+            this.Hide();
         }
 
         private void PictureBox4_Click(object sender, EventArgs e)
