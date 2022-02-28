@@ -70,7 +70,9 @@ namespace rafay_shop_project
 
         private void Label3_Click(object sender, EventArgs e)
         {
-
+            suppley suppley1 = new suppley();
+            suppley1.Show();
+            this.Hide();
         }
 
         private void Label4_Click(object sender, EventArgs e)
@@ -104,7 +106,9 @@ namespace rafay_shop_project
 
         private void PictureBox5_Click(object sender, EventArgs e)
         {
-
+            suppley suppley1 = new suppley();
+            suppley1.Show();
+            this.Hide();
         }
 
         private void PictureBox6_Click(object sender, EventArgs e)

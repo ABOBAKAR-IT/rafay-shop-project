@@ -44,5 +44,19 @@ namespace rafay_shop_project
             sales1.Show();
             this.Hide();
         }
+
+        private void Label3_Click(object sender, EventArgs e)
+        {
+            suppley suppley1 = new suppley();
+            suppley1.Show();
+            this.Hide();
+        }
+
+        private void PictureBox5_Click(object sender, EventArgs e)
+        {
+            suppley suppley1 = new suppley();
+            suppley1.Show();
+            this.Hide();
+        }
     }
 }

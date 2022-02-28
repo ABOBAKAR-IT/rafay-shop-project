@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace rafay_shop_project
 {
-    public partial class customer : Form
+    public partial class suppley : Form
     {
-        public customer()
+        public suppley()
         {
             InitializeComponent();
-        }
-
-        private void Label9_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Label_Click(object sender, EventArgs e)
@@ -36,6 +31,20 @@ namespace rafay_shop_project
             this.Hide();
         }
 
+        private void Label1_Click(object sender, EventArgs e)
+        {
+            customer customer1 = new customer();
+            customer1.Show();
+            this.Hide();
+        }
+
+        private void PictureBox3_Click(object sender, EventArgs e)
+        {
+            customer customer1 = new customer();
+            customer1.Show();
+            this.Hide();
+        }
+
         private void Label2_Click(object sender, EventArgs e)
         {
             items items1 = new items();
@@ -47,20 +56,6 @@ namespace rafay_shop_project
         {
             items items1 = new items();
             items1.Show();
-            this.Hide();
-        }
-
-        private void Label3_Click(object sender, EventArgs e)
-        {
-            suppley suppley1 = new suppley();
-            suppley1.Show();
-            this.Hide();
-        }
-
-        private void PictureBox5_Click(object sender, EventArgs e)
-        {
-            suppley suppley1 = new suppley();
-            suppley1.Show();
             this.Hide();
         }
     }

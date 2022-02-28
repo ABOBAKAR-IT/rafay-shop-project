@@ -72,6 +72,12 @@
     <Compile Include="sales.Designer.cs">
       <DependentUpon>sales.cs</DependentUpon>
     </Compile>
+    <Compile Include="suppley.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="suppley.Designer.cs">
+      <DependentUpon>suppley.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="customer.resx">
       <DependentUpon>customer.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +99,9 @@
     </Compile>
     <EmbeddedResource Include="sales.resx">
       <DependentUpon>sales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="suppley.resx">
+      <DependentUpon>suppley.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

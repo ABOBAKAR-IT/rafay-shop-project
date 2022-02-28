@@ -492,6 +492,7 @@
             this.label3.Size = new System.Drawing.Size(65, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Suppley";
+            this.label3.Click += new System.EventHandler(this.Label3_Click);
             // 
             // panel7
             // 
@@ -610,6 +611,7 @@
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox5.TabIndex = 3;
             this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.PictureBox5_Click);
             // 
             // pictureBox6
             // 
