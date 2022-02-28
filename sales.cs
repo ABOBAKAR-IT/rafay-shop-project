@@ -55,5 +55,75 @@ namespace rafay_shop_project
         {
 
         }
+
+        private void Label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBox6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBox7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBox8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
