@@ -82,7 +82,9 @@ namespace rafay_shop_project
 
         private void Label5_Click(object sender, EventArgs e)
         {
-
+            expenses expenses1 = new expenses();
+            expenses1.Show();
+            this.Hide();
         }
 
         private void Label13_Click(object sender, EventArgs e)
@@ -118,7 +120,9 @@ namespace rafay_shop_project
 
         private void PictureBox7_Click(object sender, EventArgs e)
         {
-
+            expenses expenses1 = new expenses();
+            expenses1.Show();
+            this.Hide();
         }
 
         private void PictureBox8_Click(object sender, EventArgs e)

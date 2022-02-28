@@ -240,6 +240,7 @@
             this.label5.Size = new System.Drawing.Size(76, 16);
             this.label5.TabIndex = 4;
             this.label5.Text = "Expenses";
+            this.label5.Click += new System.EventHandler(this.Label5_Click);
             // 
             // panel1
             // 
@@ -643,6 +644,7 @@
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox7.TabIndex = 3;
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.PictureBox7_Click);
             // 
             // pictureBox3
             // 
