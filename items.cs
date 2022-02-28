@@ -16,5 +16,33 @@ namespace rafay_shop_project
         {
             InitializeComponent();
         }
+
+        private void Label1_Click(object sender, EventArgs e)
+        {
+            customer customer1 = new customer();
+            customer1.Show();
+            this.Hide();
+        }
+
+        private void PictureBox3_Click(object sender, EventArgs e)
+        {
+            customer customer1 = new customer();
+            customer1.Show();
+            this.Hide();
+        }
+
+        private void Label_Click(object sender, EventArgs e)
+        {
+            sales sales1 = new sales();
+            sales1.Show();
+            this.Hide();
+        }
+
+        private void PictureBox2_Click(object sender, EventArgs e)
+        {
+            sales sales1 = new sales();
+            sales1.Show();
+            this.Hide();
+        }
     }
 }
