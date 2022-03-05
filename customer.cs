@@ -14,13 +14,22 @@ namespace rafay_shop_project
     {
         SqlConnection connection;
         SqlCommand command;
-
+        DataTable table = new DataTable();
         string db_connection = @"Data Source=RANA-ABOBAKAR\SQLEXPRESS;Initial Catalog=rafays;Integrated Security=true";
-
+        bool edit_c = false;
         public customer()
         {
             InitializeComponent();
             this.connection = new SqlConnection(db_connection);
+            table.Columns.Add("Sr No");
+            table.Columns.Add("Name");
+            table.Columns.Add("Address");
+            table.Columns.Add("Contect No");
+            table.Columns.Add("Email");
+            table.Columns.Add("Panding");
+            
+            dataGridView1.DataSource = table;
+            read_customer();
         }
 
         private void Label9_Click(object sender, EventArgs e)
@@ -101,7 +110,15 @@ namespace rafay_shop_project
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            if (edit_c == false)
+            {
+
             write_customer();
+            }
+            else
+            {
+                update_customer();
+            }
         }
         private void write_customer()
         {
@@ -112,7 +129,7 @@ namespace rafay_shop_project
                    
                     int panding = Convert.ToInt32(textBox5.Text);
                     string type = "customer";
-                    string sql = $"Insert into user(c_name,address,contectNo,panding,email,user_type)"
+                    string sql = $"Insert into user_tb(cname,caddress,contect_no,pending,email,ctype)"
                         + $"values('{textBox1.Text}','{textBox3.Text}','{textBox2.Text}','{panding}','{textBox4.Text}','{type}')";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
@@ -132,5 +149,109 @@ namespace rafay_shop_project
                 MessageBox.Show("Something Missing!");
             }
         }
+        private void read_customer()
+        {
+
+            try
+            {
+                SqlDataReader dataReader;
+                command = new SqlCommand("Select * from user_tb", this.connection);
+                this.connection.Open();
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    DataRow row = this.table.NewRow();
+                    row["Sr No"] = dataReader.GetValue(0);
+                    row["Name"] = dataReader.GetValue(1);
+                    row["Address"] = dataReader.GetValue(2);
+                    row["Contect No"] = dataReader.GetValue(3);
+                    row["Email"] = dataReader.GetValue(5);
+                    row["Panding"] = dataReader.GetValue(4);
+                 
+                    this.table.Rows.Add(row);
+                }
+                dataGridView1.Refresh();
+                this.connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+           
+            edit_c = true;
+            try
+            {
+                int id = Convert.ToInt32(textBox6.Text);
+                SqlDataReader dataReader;
+                command = new SqlCommand($"Select * from user_tb where id={id}", this.connection);
+                this.connection.Open();
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {  
+                  textBox1.Text =(string) dataReader.GetValue(1);
+                    textBox3.Text = (string)dataReader.GetValue(2);
+                    textBox2.Text = (string)dataReader.GetValue(3);
+                    textBox4.Text = (string)dataReader.GetValue(5);
+                    textBox5.Text = (string)dataReader.GetValue(4);
+                }
+               
+                this.connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void Button1_Click_1(object sender, EventArgs e)
+        {
+            {
+                if (edit_c == false)
+                {
+
+                    write_customer();
+                }
+                else
+                {
+                    update_customer();
+                }
+            }
+        }
+        private void update_customer()
+        {
+            if (!string.IsNullOrWhiteSpace(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) && !string.IsNullOrWhiteSpace(textBox4.Text) && !string.IsNullOrWhiteSpace(textBox5.Text))
+            {
+                try
+                {
+                    int id = Convert.ToInt32(textBox6.Text);
+                    int panding = Convert.ToInt32(textBox5.Text);
+                    string type = "customer";
+                    string sql = $"update user_tb "
+                        + $"set cname='{textBox1.Text}',caddress='{textBox3.Text}',contect_no='{textBox2.Text}',pending='{panding}',email='{textBox4.Text}',ctype='{type}' where id={id}";
+                    connection.Open();
+                    command = new SqlCommand(sql, connection);
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.InsertCommand = command;
+                    MessageBox.Show(adapter.InsertCommand.ExecuteNonQuery().ToString() + "  Record update");
+                    connection.Close();
+                    dataGridView1.Refresh();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Something Missing!");
+            }
+        }
     }
 }
+
+
+

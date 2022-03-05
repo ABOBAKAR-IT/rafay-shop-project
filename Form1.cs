@@ -54,7 +54,7 @@ namespace rafay_shop_project
             {
                 string uname = textBox1.Text.Trim();
                 string upassword = textBox2.Text;
-                int i = 0;
+              
   
                 command = new SqlCommand($"Select count(*) from admin where  name='{uname}' and password='{upassword}'", this.connection);
                 this.connection.Open();
