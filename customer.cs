@@ -136,7 +136,9 @@ namespace rafay_shop_project
                     SqlDataAdapter adapter = new SqlDataAdapter();
                     adapter.InsertCommand = command;
                     MessageBox.Show(adapter.InsertCommand.ExecuteNonQuery().ToString() + " New Record Added");
+                
                     connection.Close();
+                    textBox1.Text = textBox3.Text = textBox2.Text = textBox4.Text = textBox5.Text = "";
 
                 }
                 catch (Exception err)
@@ -155,7 +157,7 @@ namespace rafay_shop_project
             try
             {
                 SqlDataReader dataReader;
-                command = new SqlCommand("Select * from user_tb", this.connection);
+                command = new SqlCommand("Select * from user_tb where ctype='customer'", this.connection);
                 this.connection.Open();
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
@@ -192,7 +194,7 @@ namespace rafay_shop_project
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {  
-                  textBox1.Text =(string) dataReader.GetValue(1);
+                    textBox1.Text = (string)dataReader.GetValue(1);
                     textBox3.Text = (string)dataReader.GetValue(2);
                     textBox2.Text = (string)dataReader.GetValue(3);
                     textBox4.Text = (string)dataReader.GetValue(5);
@@ -212,12 +214,15 @@ namespace rafay_shop_project
             {
                 if (edit_c == false)
                 {
-
                     write_customer();
+                    table.Rows.Clear();
+                    read_customer();
                 }
                 else
                 {
                     update_customer();
+                    edit_c = false;
+                    textBox1.Text = textBox3.Text = textBox2.Text = textBox4.Text = textBox5.Text = "";
                 }
             }
         }
@@ -239,6 +244,8 @@ namespace rafay_shop_project
                     MessageBox.Show(adapter.InsertCommand.ExecuteNonQuery().ToString() + "  Record update");
                     connection.Close();
                     dataGridView1.Refresh();
+                    table.Rows.Clear();
+                    read_customer();
                 }
                 catch (Exception err)
                 {
@@ -250,6 +257,52 @@ namespace rafay_shop_project
                 MessageBox.Show("Something Missing!");
             }
         }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox7.Text))
+            {
+
+            search_customer();
+            }
+            else
+            {
+                table.Rows.Clear();
+                read_customer();
+            }
+        }
+        private void search_customer()
+        {
+
+            try
+            {
+                table.Rows.Clear();
+                int id = Convert.ToInt32(textBox7.Text);
+                SqlDataReader dataReader;
+                command = new SqlCommand($"Select * from user_tb where id ={id}", this.connection);
+                this.connection.Open();
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    DataRow row = this.table.NewRow();
+                    row["Sr No"] = dataReader.GetValue(0);
+                    row["Name"] = dataReader.GetValue(1);
+                    row["Address"] = dataReader.GetValue(2);
+                    row["Contect No"] = dataReader.GetValue(3);
+                    row["Email"] = dataReader.GetValue(5);
+                    row["Panding"] = dataReader.GetValue(4);
+
+                    this.table.Rows.Add(row);
+                }
+                dataGridView1.Refresh();
+                this.connection.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
     }
 }
 
