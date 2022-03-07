@@ -189,7 +189,7 @@ namespace rafay_shop_project
             {
                 int id = Convert.ToInt32(textBox6.Text);
                 SqlDataReader dataReader;
-                command = new SqlCommand($"Select * from user_tb where id={id}", this.connection);
+                command = new SqlCommand($"Select * from user_tb where id={id} and ctype='customer'", this.connection);
                 this.connection.Open();
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
@@ -236,7 +236,7 @@ namespace rafay_shop_project
                     int panding = Convert.ToInt32(textBox5.Text);
                     string type = "customer";
                     string sql = $"update user_tb "
-                        + $"set cname='{textBox1.Text}',caddress='{textBox3.Text}',contect_no='{textBox2.Text}',pending='{panding}',email='{textBox4.Text}',ctype='{type}' where id={id}";
+                        + $"set cname='{textBox1.Text}',caddress='{textBox3.Text}',contect_no='{textBox2.Text}',pending='{panding}',email='{textBox4.Text}',ctype='{type}' where id={id} and ctype='customer'";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -279,7 +279,7 @@ namespace rafay_shop_project
                 table.Rows.Clear();
                 int id = Convert.ToInt32(textBox7.Text);
                 SqlDataReader dataReader;
-                command = new SqlCommand($"Select * from user_tb where id ={id}", this.connection);
+                command = new SqlCommand($"Select * from user_tb where id ={id} and ctype ='customer'", this.connection);
                 this.connection.Open();
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
