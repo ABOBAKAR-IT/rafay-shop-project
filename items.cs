@@ -30,7 +30,7 @@ namespace rafay_shop_project
             table.Columns.Add("P Price");
 
             dataGridView1.DataSource = table;
-            read_suppleyer();
+            read_items();
           
         }
 
@@ -94,7 +94,7 @@ namespace rafay_shop_project
         {
 
         }
-        private void write_suppler()
+        private void write_items()
         {
             if (!string.IsNullOrWhiteSpace(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) && !string.IsNullOrWhiteSpace(comboBox1.Text) && !string.IsNullOrWhiteSpace(textBox5.Text))
             {
@@ -125,7 +125,7 @@ namespace rafay_shop_project
                 MessageBox.Show("Something Missing!");
             }
         }
-        private void read_suppleyer()
+        private void read_items()
         {
 
             try
@@ -155,7 +155,7 @@ namespace rafay_shop_project
                 MessageBox.Show(err.Message);
             }
         }
-        private void update_suppleyer()
+        private void update_items()
         {
             if (!string.IsNullOrWhiteSpace(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) && !string.IsNullOrWhiteSpace(comboBox1.Text) && !string.IsNullOrWhiteSpace(textBox5.Text))
             {
@@ -174,7 +174,7 @@ namespace rafay_shop_project
                     connection.Close();
                     dataGridView1.Refresh();
                     table.Rows.Clear();
-                    read_suppleyer();
+                    read_items();
                 }
                 catch (Exception err)
                 {
@@ -186,7 +186,7 @@ namespace rafay_shop_project
                 MessageBox.Show("Something Missing!");
             }
         }
-        private void search_suppleyer()
+        private void search_items()
         {
 
             try
@@ -253,13 +253,13 @@ namespace rafay_shop_project
         {
             if (edit_c == false)
             {
-                write_suppler();
+                write_items();
                 table.Rows.Clear();
-                read_suppleyer();
+                read_items();
             }
             else
             {
-                update_suppleyer();
+                update_items();
                 edit_c = false;
                 textBox1.Text = textBox3.Text = textBox2.Text =  textBox5.Text = "";
             }
@@ -270,12 +270,12 @@ namespace rafay_shop_project
             if (!string.IsNullOrWhiteSpace(textBox7.Text))
             {
 
-                search_suppleyer();
+                search_items();
             }
             else
             {
                 table.Rows.Clear();
-                read_suppleyer();
+                read_items();
             }
         }
     }
