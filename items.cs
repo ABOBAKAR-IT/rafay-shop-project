@@ -278,5 +278,10 @@ namespace rafay_shop_project
                 read_items();
             }
         }
+
+        private void Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
