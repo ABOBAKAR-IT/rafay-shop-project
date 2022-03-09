@@ -23,13 +23,14 @@ namespace rafay_shop_project
             this.connection = new SqlConnection(db_connection);
             table.Columns.Add("Sr No");
             table.Columns.Add("Item Name");
-          //  table.Columns.Add("Category");
+            //  table.Columns.Add("Category");
             table.Columns.Add("Quantity");
             table.Columns.Add("Price");
             table.Columns.Add("Total Price");
 
             dataGridView1.DataSource = table;
-           
+            combobox_get_customers();
+
         }
 
         private void Sales_Load(object sender, EventArgs e)
@@ -44,14 +45,14 @@ namespace rafay_shop_project
 
         private void PictureBox2_Click(object sender, EventArgs e)
         {
-           
+
 
 
         }
 
         private void Label_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,27 +186,27 @@ namespace rafay_shop_project
 
                 //  table.Rows.Clear();
                 string id = comboBox2.Text;
-               // MessageBox.Show(id);
+                // MessageBox.Show(id);
                 SqlDataReader dataReader;
                 command = new SqlCommand($"Select * from items where item_name='{id}' and category='{comboBox3.Text}'", this.connection);
                 this.connection.Open();
                 dataReader = command.ExecuteReader();
-             
+
                 while (dataReader.Read())
                 {
                     DataRow row = this.table.NewRow();
 
-                   int q =(int) dataReader.GetValue(3);
-                
-                   
-                    if (q>=increment)
+                    int q = (int)dataReader.GetValue(3);
+
+
+                    if (q >= increment)
                     {
                         add++;
                         row["Item Name"] = id;
                         row["Sr No"] = add;
-                       row["Quantity"] = increment;
+                        row["Quantity"] = increment;
                         row["Price"] = dataReader.GetValue(5);
-                    int total=  increment * Convert.ToInt32(dataReader.GetValue(5));
+                        int total = increment * Convert.ToInt32(dataReader.GetValue(5));
                         row["Total Price"] = total;
                         this.table.Rows.Add(row);
                     }
@@ -225,17 +226,19 @@ namespace rafay_shop_project
             }
 
 
-           
+
         }
 
         private void ComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
 
+          
+
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
-             increment = Convert.ToInt32(label19.Text);
+            increment = Convert.ToInt32(label19.Text);
             increment++;
             label19.Text = Convert.ToString(increment);
         }
@@ -244,17 +247,46 @@ namespace rafay_shop_project
         {
             try
             {
-               
+
                 string id = comboBox3.GetItemText(comboBox3.SelectedText);
                 SqlDataReader dataReader;
                 command = new SqlCommand($"Select * from items where category='{id}'", this.connection);
                 this.connection.Open();
                 dataReader = command.ExecuteReader();
-          //   //   MessageBox.Show(id);
+                //   //   MessageBox.Show(id);
                 while (dataReader.Read())
                 {
-                   string name =(string) dataReader.GetValue(1);
-                    comboBox2.Items.Add(name);                 
+                    string name = (string)dataReader.GetValue(1);
+                    comboBox2.Items.Add(name);
+                }
+                dataGridView1.Refresh();
+                this.connection.Close();
+            }
+            catch (Exception err)
+            {
+
+                MessageBox.Show(err.Message);
+            }
+
+
+
+        }
+
+        private void combobox_get_customers()
+        {
+            try
+            {
+
+              //  string id = comboBox3.GetItemText(comboBox3.SelectedText);
+                SqlDataReader dataReader;
+                command = new SqlCommand($"Select * from user_tb where ctype='customer'", this.connection);
+                this.connection.Open();
+                dataReader = command.ExecuteReader();
+                //   //   MessageBox.Show(id);
+                while (dataReader.Read())
+                {
+                    string name = (string)dataReader.GetValue(1);
+                    comboBox1.Items.Add(name);
                 }
                 dataGridView1.Refresh();
                 this.connection.Close();
