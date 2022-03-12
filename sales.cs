@@ -153,13 +153,15 @@ namespace rafay_shop_project
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            int amt = Convert.ToInt32(textBox4.Text);
             int count = 0;
             try
             {
                 DateTime dte = DateTime.Now;
+                   pnd_m =(sumt+ pnd_m) - amt;
+                string sql = $"Insert into bills(customer_id,date,panding,amount)"
+                     + $"values({cstmr_id},'{dte}',{pnd_m},{amt})";
 
-                string sql = $"Insert into bills(customer_id,date)"
-                     + $"values({cstmr_id},'{dte}')";
                 connection.Open();
                 command = new SqlCommand(sql, connection);
                 SqlDataAdapter adapter = new SqlDataAdapter();
