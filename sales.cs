@@ -153,6 +153,56 @@ namespace rafay_shop_project
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            int count = 0;
+            try
+            {
+                DateTime dte = DateTime.Now;
+
+                string sql = $"Insert into bills(customer_id,date)"
+                     + $"values({cstmr_id},'{dte}')";
+                connection.Open();
+                command = new SqlCommand(sql, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.InsertCommand = command;
+                adapter.InsertCommand.ExecuteNonQuery();
+                connection.Close();
+
+                SqlDataReader dataReader;
+                command = new SqlCommand("Select count(*) from bills", this.connection);
+                this.connection.Open();
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    count =(int) dataReader.GetValue(0);
+                }
+                dataGridView1.Refresh();
+                this.connection.Close();
+              
+                this.connection.Open();
+                foreach (DataRow row in table.Rows)
+                {
+                    int q =Convert.ToInt32( row["Quantity"]);
+                  int p=Convert.ToInt32(  row["Price"]);
+                    string n = Convert.ToString(row["Price"]);
+
+                    MessageBox.Show(q.ToString());
+
+                    sql = $"Insert into item_bill (item_name,quantity,price,bill_id)"
+                       + $"values ('{n}',{q},{p},{count})";
+                    command = new SqlCommand(sql, connection);
+                    SqlDataAdapter adapter1 = new SqlDataAdapter();
+                    adapter1.InsertCommand = command;
+                    adapter1.InsertCommand.ExecuteNonQuery();
+                }
+                this.connection.Close();
+                MessageBox.Show("Bill save in database");
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
 
         }
         private void combobox_Category()
@@ -179,6 +229,9 @@ namespace rafay_shop_project
             }
         }
         int add = 0;
+        int sumt = 0;
+        int grand_t = 0;
+        int pnd_m = 0;
         private void Button5_Click(object sender, EventArgs e)
         {
             try
@@ -195,10 +248,7 @@ namespace rafay_shop_project
                 while (dataReader.Read())
                 {
                     DataRow row = this.table.NewRow();
-
                     int q = (int)dataReader.GetValue(3);
-
-
                     if (q >= increment)
                     {
                         add++;
@@ -207,8 +257,11 @@ namespace rafay_shop_project
                         row["Quantity"] = increment;
                         row["Price"] = dataReader.GetValue(5);
                         int total = increment * Convert.ToInt32(dataReader.GetValue(5));
+                        sumt = sumt + total;
                         row["Total Price"] = total;
                         this.table.Rows.Add(row);
+                        textBox2.Text = Convert.ToString(sumt);
+                        textBox3.Text = Convert.ToString(sumt+pnd_m);
                     }
                     else
                     {
@@ -228,12 +281,41 @@ namespace rafay_shop_project
 
 
         }
-
+        int cstmr_id = 0;
         private void ComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
 
-          
+            string nam = comboBox1.GetItemText(comboBox1.SelectedItem);
+          //  MessageBox.Show(nam);
 
+            string[] names = nam.Split(',');
+            int id = Convert.ToInt32(names[1]);
+          //  MessageBox.Show(names[1]);
+            try
+            {
+
+              
+                SqlDataReader dataReader;
+                command = new SqlCommand($"Select * from user_tb where id={id}", this.connection);
+                this.connection.Open();
+                dataReader = command.ExecuteReader();
+                //   //   MessageBox.Show(id);
+                while (dataReader.Read())
+                {
+                    cstmr_id = (int)dataReader.GetValue(0);
+                    int pnding = (int)dataReader.GetValue(4);
+                    textBox1.Text = Convert.ToString(pnding);
+                    pnd_m = pnding;
+                }
+                dataGridView1.Refresh();
+                this.connection.Close();
+                textBox3.Text = Convert.ToString(sumt + pnd_m);
+            }
+            catch (Exception err)
+            {
+
+                MessageBox.Show(err.Message);
+            }
         }
 
         private void Button4_Click(object sender, EventArgs e)
@@ -243,12 +325,17 @@ namespace rafay_shop_project
             label19.Text = Convert.ToString(increment);
         }
 
+        private void Panel9_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void combobox_get_items()
         {
             try
             {
 
-                string id = comboBox3.GetItemText(comboBox3.SelectedText);
+                string id = comboBox3.GetItemText(comboBox3.SelectedItem);
                 SqlDataReader dataReader;
                 command = new SqlCommand($"Select * from items where category='{id}'", this.connection);
                 this.connection.Open();
@@ -285,7 +372,7 @@ namespace rafay_shop_project
                 //   //   MessageBox.Show(id);
                 while (dataReader.Read())
                 {
-                    string name = (string)dataReader.GetValue(1);
+                    string name = (string)dataReader.GetValue(1)+","+ Convert.ToString((int)dataReader.GetValue(0));
                     comboBox1.Items.Add(name);
                 }
                 dataGridView1.Refresh();
