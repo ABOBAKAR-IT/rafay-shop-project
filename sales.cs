@@ -36,6 +36,7 @@ namespace rafay_shop_project
         private void Sales_Load(object sender, EventArgs e)
         {
 
+            this.reportViewer1.RefreshReport();
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)

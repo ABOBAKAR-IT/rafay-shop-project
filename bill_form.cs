@@ -16,5 +16,11 @@ namespace rafay_shop_project
         {
             InitializeComponent();
         }
+
+        private void Bill_form_Load(object sender, EventArgs e)
+        {
+
+            this.reportViewer1.RefreshReport();
+        }
     }
 }
