@@ -157,14 +157,19 @@ namespace rafay_shop_project
             if (!string.IsNullOrWhiteSpace(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) && !string.IsNullOrWhiteSpace(comboBox2.Text) && !string.IsNullOrWhiteSpace(textBox4.Text))
             {
                 int amt = Convert.ToInt32(textBox4.Text);
+                int g_total = Convert.ToInt32(textBox3.Text);
+                int n_amount = Convert.ToInt32(textBox2.Text);
+
+
                 int count = 0;
                 try
                 {
                     // DateTime dte = DateTime.Now;
                     //  string daate = Convert.ToString(dte);
-                    pnd_m = (sumt + pnd_m) - amt;
-                    string sql = $"Insert into bills(customer_id,date,panding,amount)"
-                         + $"values({cstmr_id},'{2022 / 01 / 01}',{pnd_m},{amt})";
+                 //   pnd_m = (sumt + pnd_m) - amt;
+
+                    string sql = $"Insert into bills(customer_id,date,panding,p_amount,g_total,n_amount)"
+                         + $"values({cstmr_id},'{2022 / 01 / 01}',{pnd_m},{amt},{g_total},{n_amount})";
 
                     connection.Open();
                     command = new SqlCommand(sql, connection);
@@ -223,7 +228,8 @@ namespace rafay_shop_project
                     this.connection.Close();
                     MessageBox.Show("Bill save in database");
 
-
+                    bill_form billshow = new bill_form(count);
+                    billshow.Show();
 
                 }
                 catch (Exception err)
@@ -362,6 +368,11 @@ namespace rafay_shop_project
         }
 
         private void Panel9_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
         {
 
         }
