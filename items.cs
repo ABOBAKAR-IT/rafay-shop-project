@@ -165,7 +165,7 @@ namespace rafay_shop_project
                     
                   
                     string sql = $"update items "
-                        + $"set item_name='{textBox1.Text}',category='{comboBox1.Text}',quantity='{textBox2.Text}',s_price='{textBox3.Text}',p_price='{textBox5.Text}' where id={id}";
+                        + $"set item_name='{textBox1.Text}',category='{comboBox1.Text}',quantity={Convert.ToInt16( textBox2.Text)},s_price={Convert.ToInt16(textBox3.Text)},p_price={Convert.ToInt16(textBox5.Text)} where id={id}";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();

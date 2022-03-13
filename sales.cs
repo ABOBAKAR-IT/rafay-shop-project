@@ -36,7 +36,7 @@ namespace rafay_shop_project
         private void Sales_Load(object sender, EventArgs e)
         {
 
-            this.reportViewer1.RefreshReport();
+          
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
@@ -158,10 +158,11 @@ namespace rafay_shop_project
             int count = 0;
             try
             {
-                DateTime dte = DateTime.Now;
+                // DateTime dte = DateTime.Now;
+              //  string daate = Convert.ToString(dte);
                    pnd_m =(sumt+ pnd_m) - amt;
                 string sql = $"Insert into bills(customer_id,date,panding,amount)"
-                     + $"values({cstmr_id},'{dte}',{pnd_m},{amt})";
+                     + $"values({cstmr_id},'{2022/01/01}',{pnd_m},{amt})";
 
                 connection.Open();
                 command = new SqlCommand(sql, connection);
@@ -185,22 +186,43 @@ namespace rafay_shop_project
                 foreach (DataRow row in table.Rows)
                 {
                     int q =Convert.ToInt32( row["Quantity"]);
-                  int p=Convert.ToInt32(  row["Price"]);
-                    string n = Convert.ToString(row["Price"]);
+                    int p=Convert.ToInt32(  row["Price"]);
+                    string n = Convert.ToString(row["Item Name"]);
 
-                    MessageBox.Show(q.ToString());
+                  //  MessageBox.Show(q.ToString());
 
                     sql = $"Insert into item_bill (item_name,quantity,price,bill_id)"
                        + $"values ('{n}',{q},{p},{count})";
                     command = new SqlCommand(sql, connection);
+                    SqlDataAdapter adapter2 = new SqlDataAdapter();
+                    adapter2.InsertCommand = command;
+                    adapter2.InsertCommand.ExecuteNonQuery();
+
+                    //update item quantity
+
+                    sql = $"update items "
+                       + $"set quantity=quantity-{q} where item_name='{n}'";
+                    command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter1 = new SqlDataAdapter();
                     adapter1.InsertCommand = command;
                     adapter1.InsertCommand.ExecuteNonQuery();
+                  
                 }
+                //  cstmr_id
+                int toam = Convert.ToInt16(textBox3.Text);
+                int pp = toam - amt;
+                      sql = $"update user_tb "
+                       + $"set pending={pp} where id={cstmr_id}";
+                command = new SqlCommand(sql, connection);
+                SqlDataAdapter adapter3 = new SqlDataAdapter();
+                adapter3.InsertCommand = command;
+                adapter3.InsertCommand.ExecuteNonQuery();
+
                 this.connection.Close();
                 MessageBox.Show("Bill save in database");
 
-
+             
+              
             }
             catch (Exception err)
             {
@@ -208,6 +230,7 @@ namespace rafay_shop_project
             }
 
         }
+
         private void combobox_Category()
         {
 
@@ -235,6 +258,7 @@ namespace rafay_shop_project
         int sumt = 0;
         int grand_t = 0;
         int pnd_m = 0;
+        int reming_quantity = 0;
         private void Button5_Click(object sender, EventArgs e)
         {
             try
@@ -254,6 +278,7 @@ namespace rafay_shop_project
                     int q = (int)dataReader.GetValue(3);
                     if (q >= increment)
                     {
+                        reming_quantity = q - increment;
                         add++;
                         row["Item Name"] = id;
                         row["Sr No"] = add;
@@ -284,6 +309,8 @@ namespace rafay_shop_project
 
 
         }
+
+
         int cstmr_id = 0;
         private void ComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
