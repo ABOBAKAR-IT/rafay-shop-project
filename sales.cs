@@ -154,81 +154,87 @@ namespace rafay_shop_project
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            int amt = Convert.ToInt32(textBox4.Text);
-            int count = 0;
-            try
+            if (!string.IsNullOrWhiteSpace(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) && !string.IsNullOrWhiteSpace(comboBox2.Text) && !string.IsNullOrWhiteSpace(textBox4.Text))
             {
-                // DateTime dte = DateTime.Now;
-              //  string daate = Convert.ToString(dte);
-                   pnd_m =(sumt+ pnd_m) - amt;
-                string sql = $"Insert into bills(customer_id,date,panding,amount)"
-                     + $"values({cstmr_id},'{2022/01/01}',{pnd_m},{amt})";
-
-                connection.Open();
-                command = new SqlCommand(sql, connection);
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.InsertCommand = command;
-                adapter.InsertCommand.ExecuteNonQuery();
-                connection.Close();
-
-                SqlDataReader dataReader;
-                command = new SqlCommand("Select count(*) from bills", this.connection);
-                this.connection.Open();
-                dataReader = command.ExecuteReader();
-                while (dataReader.Read())
+                int amt = Convert.ToInt32(textBox4.Text);
+                int count = 0;
+                try
                 {
-                    count =(int) dataReader.GetValue(0);
+                    // DateTime dte = DateTime.Now;
+                    //  string daate = Convert.ToString(dte);
+                    pnd_m = (sumt + pnd_m) - amt;
+                    string sql = $"Insert into bills(customer_id,date,panding,amount)"
+                         + $"values({cstmr_id},'{2022 / 01 / 01}',{pnd_m},{amt})";
+
+                    connection.Open();
+                    command = new SqlCommand(sql, connection);
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.InsertCommand = command;
+                    adapter.InsertCommand.ExecuteNonQuery();
+                    connection.Close();
+
+                    SqlDataReader dataReader;
+                    command = new SqlCommand("Select count(*) from bills", this.connection);
+                    this.connection.Open();
+                    dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        count = (int)dataReader.GetValue(0);
+                    }
+                    dataGridView1.Refresh();
+                    this.connection.Close();
+
+                    this.connection.Open();
+                    foreach (DataRow row in table.Rows)
+                    {
+                        int q = Convert.ToInt32(row["Quantity"]);
+                        int p = Convert.ToInt32(row["Price"]);
+                        string n = Convert.ToString(row["Item Name"]);
+
+                        //  MessageBox.Show(q.ToString());
+
+                        sql = $"Insert into item_bill (item_name,quantity,price,bill_id)"
+                           + $"values ('{n}',{q},{p},{count})";
+                        command = new SqlCommand(sql, connection);
+                        SqlDataAdapter adapter2 = new SqlDataAdapter();
+                        adapter2.InsertCommand = command;
+                        adapter2.InsertCommand.ExecuteNonQuery();
+
+                        //update item quantity
+
+                        sql = $"update items "
+                           + $"set quantity=quantity-{q} where item_name='{n}'";
+                        command = new SqlCommand(sql, connection);
+                        SqlDataAdapter adapter1 = new SqlDataAdapter();
+                        adapter1.InsertCommand = command;
+                        adapter1.InsertCommand.ExecuteNonQuery();
+
+                    }
+                    //  cstmr_id
+                    int toam = Convert.ToInt16(textBox3.Text);
+                    int pp = toam - amt;
+                    sql = $"update user_tb "
+                     + $"set pending={pp} where id={cstmr_id}";
+                    command = new SqlCommand(sql, connection);
+                    SqlDataAdapter adapter3 = new SqlDataAdapter();
+                    adapter3.InsertCommand = command;
+                    adapter3.InsertCommand.ExecuteNonQuery();
+
+                    this.connection.Close();
+                    MessageBox.Show("Bill save in database");
+
+
+
                 }
-                dataGridView1.Refresh();
-                this.connection.Close();
-              
-                this.connection.Open();
-                foreach (DataRow row in table.Rows)
+                catch (Exception err)
                 {
-                    int q =Convert.ToInt32( row["Quantity"]);
-                    int p=Convert.ToInt32(  row["Price"]);
-                    string n = Convert.ToString(row["Item Name"]);
-
-                  //  MessageBox.Show(q.ToString());
-
-                    sql = $"Insert into item_bill (item_name,quantity,price,bill_id)"
-                       + $"values ('{n}',{q},{p},{count})";
-                    command = new SqlCommand(sql, connection);
-                    SqlDataAdapter adapter2 = new SqlDataAdapter();
-                    adapter2.InsertCommand = command;
-                    adapter2.InsertCommand.ExecuteNonQuery();
-
-                    //update item quantity
-
-                    sql = $"update items "
-                       + $"set quantity=quantity-{q} where item_name='{n}'";
-                    command = new SqlCommand(sql, connection);
-                    SqlDataAdapter adapter1 = new SqlDataAdapter();
-                    adapter1.InsertCommand = command;
-                    adapter1.InsertCommand.ExecuteNonQuery();
-                  
+                    MessageBox.Show(err.Message);
                 }
-                //  cstmr_id
-                int toam = Convert.ToInt16(textBox3.Text);
-                int pp = toam - amt;
-                      sql = $"update user_tb "
-                       + $"set pending={pp} where id={cstmr_id}";
-                command = new SqlCommand(sql, connection);
-                SqlDataAdapter adapter3 = new SqlDataAdapter();
-                adapter3.InsertCommand = command;
-                adapter3.InsertCommand.ExecuteNonQuery();
-
-                this.connection.Close();
-                MessageBox.Show("Bill save in database");
-
-             
-              
             }
-            catch (Exception err)
+            else
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show("Something missing...");
             }
-
         }
 
         private void combobox_Category()
