@@ -164,12 +164,13 @@ namespace rafay_shop_project
                 int count = 0;
                 try
                 {
-                    // DateTime dte = DateTime.Now;
-                    //  string daate = Convert.ToString(dte);
-                 //   pnd_m = (sumt + pnd_m) - amt;
+                     DateTime dte = DateTime.Now;
+                      string daate = dte.ToString("yyyy-MM-dd");
+                  
+
 
                     string sql = $"Insert into bills(customer_id,date,panding,p_amount,g_total,n_amount)"
-                         + $"values({cstmr_id},'{2022 / 01 / 01}',{pnd_m},{amt},{g_total},{n_amount})";
+                         + $"values({cstmr_id},'{daate}',{pnd_m},{amt},{g_total},{n_amount})";
 
                     connection.Open();
                     command = new SqlCommand(sql, connection);

@@ -34,7 +34,6 @@ namespace rafay_shop_project
 
         private void show_report()
         {
-            MessageBox.Show("hello");
           
             string sql = $"select bills.id,user_tb.cname as name,bills.date,bills.panding as old_pending,item_bill.item_name,item_bill.quantity as item_quantity," +
                 $"item_bill.price as item_price,item_bill.quantity*item_bill.price as total_item_price,user_tb.pending as new_pending,bills.p_amount,bills.n_amount,bills.g_total" +
