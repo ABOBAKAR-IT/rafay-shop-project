@@ -26,7 +26,7 @@ namespace rafay_shop_project
             table.Columns.Add("Title");
             table.Columns.Add("Amount");
             table.Columns.Add("Detail");
-           
+            table.Columns.Add("Date");
 
             dataGridView1.DataSource = table;
             read_expenses();
@@ -100,8 +100,8 @@ namespace rafay_shop_project
             {
                 try
                 {
-                    string sql = $"Insert into expenses(title,amount,detail)"
-                        + $"values('{textBox1.Text}',{Convert.ToInt16(textBox2.Text)},'{richTextBox1.Text}')";
+                    string sql = $"Insert into expenses(title,amount,detail,date)"
+                        + $"values('{textBox1.Text}',{Convert.ToInt16(textBox2.Text)},'{richTextBox1.Text}','{dateTimePicker1.Value.ToString("yyyy - MM - dd")}')";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -136,7 +136,10 @@ namespace rafay_shop_project
                     row["Sr No"] = dataReader.GetValue(0);
                     row["Title"] = dataReader.GetValue(1);
                     row["Amount"] = dataReader.GetValue(2);
-                    row["Detail"] = dataReader.GetValue(3);                  
+                    row["Detail"] = dataReader.GetValue(3);
+                    row["Date"] = dataReader.GetValue(4);
+
+
                     this.table.Rows.Add(row);
                 }
                 dataGridView1.Refresh();
@@ -156,7 +159,7 @@ namespace rafay_shop_project
                     int id = Convert.ToInt32(textBox6.Text.Trim());
                     int amt = Convert.ToInt32(textBox2.Text.Trim());
                     string sql = $"update expenses "
-                        + $"set title='{textBox1.Text}',amount={amt},detail='{textBox1.Text}'  where id={id}";
+                        + $"set title='{textBox1.Text}',amount={amt},detail='{textBox1.Text}',date='{dateTimePicker1.Value.ToString("yyyy - MM - dd")}'  where id={id}";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -195,6 +198,8 @@ namespace rafay_shop_project
                     row["Title"] = dataReader.GetValue(1);
                     row["Amount"] = dataReader.GetValue(2);
                     row["Detail"] = dataReader.GetValue(3);
+                    row["Date"] = dataReader.GetValue(4);
+
 
                     this.table.Rows.Add(row);
                 }
