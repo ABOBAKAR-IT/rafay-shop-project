@@ -101,7 +101,7 @@ namespace rafay_shop_project
                 try
                 {
                     string sql = $"Insert into expenses(title,amount,detail)"
-                        + $"values('{textBox1.Text}','{textBox2.Text}','{richTextBox1.Text}')";
+                        + $"values('{textBox1.Text}',{Convert.ToInt16(textBox2.Text)},'{richTextBox1.Text}')";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -153,9 +153,10 @@ namespace rafay_shop_project
             {
                 try
                 {
-                    int id = Convert.ToInt32(textBox7.Text);
+                    int id = Convert.ToInt32(textBox6.Text.Trim());
+                    int amt = Convert.ToInt32(textBox2.Text.Trim());
                     string sql = $"update expenses "
-                        + $"set title='{textBox1.Text}',amount='{textBox2.Text}',detail='{richTextBox1.Text}'  where id={id}";
+                        + $"set title='{textBox1.Text}',amount={amt},detail='{textBox1.Text}'  where id={id}";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -219,7 +220,8 @@ namespace rafay_shop_project
                 while (dataReader.Read())
                 {
                     textBox1.Text = (string)dataReader.GetValue(1);
-                    textBox2.Text = (string)dataReader.GetValue(2);
+                    int amt = (int)dataReader.GetValue(2);
+                    textBox2.Text = Convert.ToString(amt);
                     richTextBox1.Text = (string)dataReader.GetValue(3);
                   
                 }

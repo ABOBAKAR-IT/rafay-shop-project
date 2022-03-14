@@ -130,7 +130,7 @@ namespace rafay_shop_project
                     int panding = Convert.ToInt32(textBox5.Text);
                     string type = "customer";
                     string sql = $"Insert into user_tb(cname,caddress,contect_no,pending,email,ctype)"
-                        + $"values('{textBox1.Text}','{textBox3.Text}','{textBox2.Text}','{panding}','{textBox4.Text}','{type}')";
+                        + $"values('{textBox1.Text}','{textBox3.Text}','{textBox2.Text}',{panding},'{textBox4.Text}','{type}')";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
@@ -198,7 +198,9 @@ namespace rafay_shop_project
                     textBox3.Text = (string)dataReader.GetValue(2);
                     textBox2.Text = (string)dataReader.GetValue(3);
                     textBox4.Text = (string)dataReader.GetValue(5);
-                    textBox5.Text = (string)dataReader.GetValue(4);
+                    int pnd = (int)dataReader.GetValue(4);
+                    textBox5.Text = Convert.ToString(pnd);
+
                 }
                
                 this.connection.Close();
@@ -236,7 +238,7 @@ namespace rafay_shop_project
                     int panding = Convert.ToInt32(textBox5.Text);
                     string type = "customer";
                     string sql = $"update user_tb "
-                        + $"set cname='{textBox1.Text}',caddress='{textBox3.Text}',contect_no='{textBox2.Text}',pending='{panding}',email='{textBox4.Text}',ctype='{type}' where id={id} and ctype='customer'";
+                        + $"set cname='{textBox1.Text}',caddress='{textBox3.Text}',contect_no='{textBox2.Text}',pending={panding},email='{textBox4.Text}',ctype='{type}' where id={id} and ctype='customer'";
                     connection.Open();
                     command = new SqlCommand(sql, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
