@@ -639,6 +639,7 @@
             this.label4.Size = new System.Drawing.Size(55, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Report";
+            this.label4.Click += new System.EventHandler(this.Label4_Click);
             // 
             // pictureBox6
             // 
@@ -651,6 +652,7 @@
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox6.TabIndex = 3;
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.PictureBox6_Click);
             // 
             // panel10
             // 

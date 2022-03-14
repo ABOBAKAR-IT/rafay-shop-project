@@ -37,7 +37,7 @@ namespace rafay_shop_project
           
             string sql = $"select bills.id,user_tb.cname as name,bills.date,bills.panding as old_pending,item_bill.item_name,item_bill.quantity as item_quantity," +
                 $"item_bill.price as item_price,item_bill.quantity*item_bill.price as total_item_price,user_tb.pending as new_pending,bills.p_amount,bills.n_amount,bills.g_total" +
-                $"  from bills join user_tb on bills.customer_id=user_tb.id  join item_bill on bills.id=item_bill.bill_id where bill_id={id}";
+                $"  from bills join user_tb on bills.customer_id=user_tb.id  join item_bill on bills.id=item_bill.bill_id where bills.id={id}";
 
 
 

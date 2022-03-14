@@ -279,7 +279,19 @@ namespace rafay_shop_project
             }
         }
 
+        private void PictureBox6_Click(object sender, EventArgs e)
+        {
+            Report_Form rf = new Report_Form();
+            rf.Show();
+            this.Hide();
+        }
 
+        private void Label4_Click(object sender, EventArgs e)
+        {
+            Report_Form rf = new Report_Form();
+            rf.Show();
+            this.Hide();
+        }
     }
 
 
