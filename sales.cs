@@ -154,14 +154,14 @@ namespace rafay_shop_project
         {
 
         }
-
+        int g_total = 0, n_amount = 0;
         private void Button1_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) && !string.IsNullOrWhiteSpace(comboBox2.Text) && !string.IsNullOrWhiteSpace(textBox4.Text))
             {
                 int amt = Convert.ToInt32(textBox4.Text);
-                int g_total = Convert.ToInt32(textBox3.Text);
-                int n_amount = Convert.ToInt32(textBox2.Text);
+                 g_total = Convert.ToInt32(textBox3.Text);
+                 n_amount = Convert.ToInt32(textBox2.Text);
 
 
                 int count = 0;
@@ -257,7 +257,7 @@ namespace rafay_shop_project
             comboBox2.Items.Clear();
             combobox_get_items();
         }
-        string items_name, stock, s_price;
+       
         int increment;
 
         private void Button3_Click(object sender, EventArgs e)
@@ -378,7 +378,12 @@ namespace rafay_shop_project
 
         private void Button6_Click(object sender, EventArgs e)
         {
-
+            table.Rows.Clear();
+            g_total = 0;
+            n_amount = 0;
+            textBox2.Text = "";
+            textBox3.Text = "";
+            sumt = 0;
         }
 
         private void combobox_get_items()
