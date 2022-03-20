@@ -39,15 +39,15 @@ namespace rafay_shop_project
             try
             {
                 SqlDataReader dataReader;
-                command = new SqlCommand("select * from bills", this.connection);
+                command = new SqlCommand("select sum(p_amount)as total,date from bills group by date", this.connection);
                 this.connection.Open();
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
                   
-                  d=(DateTime)  dataReader.GetValue(2);
+                  d=(DateTime)  dataReader.GetValue(1);
                     int dd =Convert.ToInt16( d.ToString("dd"));
-                      this.chart1.Series["Sales"].Points.AddXY(dd, dataReader.GetValue(6));
+                      this.chart1.Series["Sales"].Points.AddXY(dd, dataReader.GetValue(0));
                   //  MessageBox.Show(dd.ToString());
 
                 }
